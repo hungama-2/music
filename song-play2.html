@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<style>@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@500&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  outline: 0;
+}
+body {
+  background-color:#13031d;
+}
+.container {
+  width: 100%;
+  border-radius: 8px;
+  background-color: #13031d;
+  box-shadow: 5px 5px 11px #a2b1c6, -5px -5px 11px #fff;
+  text-align: center;
+  font-family: 'Big Shoulders Stencil Text', cursive;
+}
+.container h1 {
+  font-size: 6.5rem;
+  margin: 12px 0;
+}
+.container img {
+  width: 70%;
+  margin-bottom: 70px;
+}
+.level {
+  width: 80%;
+  appearance: none;
+  background-color: #e1e6ec;
+  box-shadow: 5px 5px 11px #a2b1c6, -5px -5px 11px #fff;
+  border-radius: 25px;
+  margin-bottom: 12px;
+}
+.level::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #a2b1c6;
+  box-shadow: 2px 2px 5px #a2b1c6, -2px -2px 5px #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 25px;
+}
+.btn {
+  display: inline-block;
+  margin: 12px 0;
+}
+.btn button {
+  posititon: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  background-color: #e1e6ec;
+  box-shadow: 2px 2px 5px #a2b1c6, -2px -2px 5px #fff;
+  border: none;
+}
+.btn button:active {
+  background-color: #e1e6ec;
+  box-shadow: inset 2px 2px 5px #a2b1c6, -2px -2px 5px #fff;
+}
+#play {
+  margin: 0 16px;
+}
+.btn button img {
+  width: 150px;
+}</style>
+<body>
+  <div class="container">
+    <h1>Play your music</h1>
+    <img src="https://i.imgur.com/9wBdgGB_d.webp?maxwidth=728&fidelity=grand">
+    <input id="range" class="level" type="range" value="0" min="0">
+    <div class="btn">
+      <button id="prev"><img src="https://img.icons8.com/bubbles/50/000000/skip-to-start.png"/></button>
+      <button id="play"><img id="play_img" src="https://img.icons8.com/bubbles/50/000000/play.png"/></button>
+      <button id="next"><img src="https://img.icons8.com/bubbles/50/000000/fast-forward.png"/></button>
+    </div>
+  </div>
+    
+
+<script>music_name = "https://hardmd.com/folder/audio/034/HARD034_049%20Edge%20of%20the%20Knife_mix1.mp3";
+let play_btn = document.querySelector("#play");
+let next_btn = document.querySelector("#next");
+let prev_btn = document.querySelector("#prev");
+let range = document.querySelector("#range");
+let play_img = document.querySelector("#play_img");
+let isPlaying = false;
+let duration = 0;
+let currentTime = 0;
+let Song = new Audio();
+window.onload = playsong
+
+function playsong() {
+  Song.src = music_name;
+  play_btn.addEventListener('click', function() {
+    if(!isPlaying) {
+      Song.play();
+      isPlaying = true;
+      duration = Song.duration;
+      range.max = duration;
+      play_img.src = "https://img.icons8.com/bubbles/50/000000/pause.png";
+    }else {
+      Song.pause();
+      isPlaying = false;
+      play_img.src = "https://img.icons8.com/bubbles/50/000000/play.png";
+    }
+    range.addEventListener('change', function() {
+      Song.currentTime = range.value;
+    })
+    Song.addEventListener('timeupdate', function() {
+      range.value = Song.currentTime;
+    })
+  })
+}
+</script>
+</body>
+</html>
